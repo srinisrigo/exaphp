@@ -1,0 +1,125 @@
+﻿/* everywhere else */
+
+* {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    font-size: 10pt;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+div.header-div,
+div.content-div,
+div.footer-div {
+    width: 100%;
+}
+
+div.header-div {
+    height: 4%;
+    background-color: #fca;
+}
+
+div.footer-div {
+    height: 3%;
+    background-color: #cfa;
+    text-align: right;
+}
+
+div.content-div {
+    height: 93%;
+    overflow: auto;
+}
+
+td {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+nav a {
+    margin: 8px;
+}
+
+div.no-component {
+    height: 100%;
+    background: url(../images/i1_1967ca6a.png) no-repeat 50% 50%;
+}
+
+img.edit,
+img.notes,
+img.report,
+img.scan,
+img.setup,
+img.view {
+    height: 16px;
+    width: 16px;
+}
+
+img.edit {
+    content: url(../images/edit.png);
+}
+
+img.notes {
+    content: url(../images/notes.png);
+}
+
+img.report {
+    content: url(../images/report.png);
+}
+
+img.scan {
+    content: url(images/scan.png);
+}
+
+img.setup {
+    content: url(../images/setup.png);
+}
+
+img.view {
+    content: url(../images/view.png);
+}
+
+tr.selected {
+    background-color: greenyellow;
+}
+
+div.thumb-container {
+    float: left;
+}
+
+input[type="submit"].scan {
+    background: url(images/scan.png) no-repeat 0% 0%;
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+
+
+img.thumbnail {
+    width: 60px;
+    height: 80px;
+    border: 0;
+}
+
+canvas {
+    width: 50%;
+    height: 80%;
+    border: 0;
+    background-color: black;
+}
+/*
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/

@@ -1,0 +1,65 @@
+﻿<?php
+
+class viewerInfo {}    
+$viewerInfo = new viewerInfo;
+$viewerInfo->study = new viewerInfo;
+$viewerInfo->link_info = new viewerInfo;
+$viewerInfo->study->pname = "";
+$viewerInfo->study->facility_id = "";
+$viewerInfo->study->session = "";
+$viewerInfo->study->descr = "";
+$viewerInfo->study->bodypart = "";
+$viewerInfo->study->institution = "";
+$viewerInfo->study->ref_phy = "";
+$viewerInfo->study->has_priors = "";
+$viewerInfo->study->_id = "";
+$viewerInfo->study->_uid = "";
+$viewerInfo->study->_guid = "";
+$viewerInfo->study->_accession_no = "";
+$viewerInfo->study->_account_no = "";
+$viewerInfo->study->_stat = "";
+$viewerInfo->study->_status = "";
+$viewerInfo->study->_modality = "";
+$viewerInfo->study->_p_name = "";
+$viewerInfo->study->_p_gender = "";
+$viewerInfo->study->_p_id = "";
+$viewerInfo->study->_s_date = "";
+$viewerInfo->study->_age = "";
+$viewerInfo->study->study_dt = "";
+$viewerInfo->study->key_images = "";
+$viewerInfo->study->manuallyEditedTags = "";
+$viewerInfo->study->stacks = array();
+$viewerInfo->study->{"_0008,0050"} = "accession_no";
+$viewerInfo->study->{"_0008,1030"} = "study_description";
+$viewerInfo->study->{"_0010,0010"} = "full_name";
+$viewerInfo->study->{"_0010,0020"} = "account_no";
+$viewerInfo->study->{"_0010,0030"} = "birth_date";
+$viewerInfo->study->{"_0010,0040"} = "gender";
+$viewerInfo->study->{"_0018,0015"} = "body_part";
+$viewerInfo->study->{"_0008,0060"} = "modality";
+$viewerInfo->study->{"_0008,1030"} = "study_description";
+$viewerInfo->study->{"_0010,0010"} = "full_name";
+$viewerInfo->study->{"_0010,0020"} = "account_no";
+$viewerInfo->study->{"_0010,0030"} = "birth_date";
+$viewerInfo->study->{"_0010,0040"} = "gender";
+$viewerInfo->study->{"_0018,0015"} = "body_part";
+$viewerInfo->study->{"_0020,0010"} = "dicom_study_id";
+$viewerInfo->study->{"_0020,000d"} = "study_uid";
+$viewerInfo->study->{"_0008,0020"} = "study_dt";
+$viewerInfo->study->{"_0008,0030"} = "study_time";
+$viewerInfo->study->{"_0008,1030"} = "study_desc";
+$viewerInfo->study->{"_0008,0090"} = "ref_phy_name";
+$viewerInfo->study->{"_0008,1060"} = "name_phys_reading_study";
+$viewerInfo->study->{"_0032,1030"} = "reason_for_study";
+$viewerInfo->study->{"_0008,0080"} = "institution";
+$viewerInfo->study->{"_0008,1040"} = "department";
+$viewerInfo->study->{"_0008,1010"} = "station";
+$viewerInfo->study->{"_0008,0070"} = "manufacturer";
+$viewerInfo->study->{"_0010,1010"} = "patients_age";
+$viewerInfo->study->{"_0010,0010"} = "patient_name";
+$viewerInfo->study->{"_0010,0020"} = "dicom_patient_id";
+$viewerInfo->study->{"_0010,0030"} = "birth_date";
+$viewerInfo->study->{"_0010,0040"} = "gender";
+$viewerInfo->study->{"_0010,4000"} = "pat_comments";
+
+?>
