@@ -44,7 +44,7 @@ if (isset($_GET["study"])) {
 
         foreach ($studyResult[0] as $key => $value) $viewerInfo->study->{$key} = $value;
         foreach (json_decode($studyResult[0]->study_details) as $key => $value) $viewerInfo->study->{$key} = $value;
-        foreach (json_decode($studyResult[0]->patient_details) as $key => $value) $viewerInfo->study->{$key} = $value;
+        if ($studyResult[0]->patient_details) foreach (json_decode($studyResult[0]->patient_details) as $key => $value) $viewerInfo->study->{$key} = $value;
         
         $stackinforesult = pg_query(sprintf($stackviewerinfo, $argstudyid, $argstudyid)) or die('query failed'.pg_last_error());        
         if (pg_num_rows($stackinforesult)) {
@@ -60,8 +60,13 @@ if (isset($_GET["study"])) {
                         $instanceInfo = new viewerInfo;
                         if ($instanceobject) {
                             foreach (json_decode($instanceobject->instance_info) as $key => $value) $instanceInfo->{$key} = $value;
+                            if (count((array)$instanceobject->instance_attributes) > 1) {                                
                             $instanceattributes = json_decode($instanceobject->instance_attributes);
-                            $instanceInfo->_f = base64_encode($instanceattributes->file_name? join('\\', array($instanceobject->root_directory,$instanceattributes->file_path,$instanceattributes->file_name)):$instanceobject->file_path);
+                                $instanceInfo->_f = base64_encode(join('\\', array($instanceobject->root_directory,$instanceattributes->file_path,$instanceattributes->file_name)));
+                            }
+                            else {                                
+                                $instanceInfo->_f = base64_encode(join('\\', array($instanceobject->root_directory, $instanceobject->file_path)));
+                            }
                         }
                         $instanceInfo->_id = $instanceobject->id;
                         $stackInfo->images[] = $instanceInfo;
@@ -81,7 +86,8 @@ $stack_count = count($viewerInfo->study->stacks);
 if ($stack_count) {
     for($s=0;$s<$stack_count;$s++) {
         if (count($viewerInfo->study->stacks[$s]->images)) {
-            $img_count = $viewerInfo->study->stacks[$s]->is_multi_frame? $viewerInfo->study->stacks[$s]->no_of_frames:$viewerInfo->study->stacks[$s]->no_of_images;
+            $img_count = 0;
+            if (!empty($viewerInfo->study->stacks[$s]->is_multi_frame)) $viewerInfo->study->stacks[$s]->is_multi_frame? $viewerInfo->study->stacks[$s]->no_of_frames:$viewerInfo->study->stacks[$s]->no_of_images;
             echo '<img class=thumbnail imgindex=0 imgcount='.$img_count.' stackindex='.$s.' src="get_dcm_to_image.php?fn='.$viewerInfo->study->stacks[$s]->images[0]->_f.'&t=1" onerror="this.onerror=null;this.src=\'images/imageerror.png\';" /> ';
         }
     }

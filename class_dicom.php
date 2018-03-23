@@ -8,7 +8,7 @@ http://www.deanvaughan.org/projects/class_dicom_php/
 
 // WINDOWS EXAMPLE
 // define('TOOLKIT_DIR', 'C:/dcmtk/bin');
-define('TOOLKIT_DIR', 'D:/dcmtk-3.6.2-win64-dynamic/bin');
+define('TOOLKIT_DIR', 'D:/dcmtk/bin');
 
 ////////////////
 ///////////////
@@ -199,6 +199,8 @@ class dicom_convert {
   var $jpg_quality = 100;
   var $tn_size = 64;
   var $file_path = '%temp%/';
+  var $out = ''; 
+  var $convert_cmd = ''; 
 
   function __construct($file = '') {
     $this->file = $file;
@@ -213,8 +215,8 @@ class dicom_convert {
     $this->jpg_file = sys_get_temp_dir() . '/' . preg_replace("/(\.(dcm|jpg|jpeg|gif|png))$/i", "", get_valid_file_name($this->file)) . '.jpg';
    
     if(!file_exists($this->jpg_file)) {
-      $convert_cmd = BIN_DCMJ2PNM . " +oj +Jq " . $this->jpg_quality . " --use-window 1 \"" . $this->file . "\" \"" . $this->jpg_file . "\"";
-      $out = Execute($convert_cmd);
+      $this->convert_cmd = BIN_DCMJ2PNM . " +oj +Jq " . $this->jpg_quality . " --use-window 1 \"" . $this->file . "\" \"" . $this->jpg_file . "\"";
+      $this->out = Execute($this->convert_cmd);
     }
 
     if(file_exists($this->jpg_file)) {
@@ -222,8 +224,8 @@ class dicom_convert {
     }
 
     if($filesize < 10) {
-      $convert_cmd = BIN_DCMJ2PNM . " +Wm +oj +Jq " . $this->jpg_quality . " \"" . $this->file . "\" \"" . $this->jpg_file . "\"";
-      $out = Execute($convert_cmd);
+      $this->convert_cmd = BIN_DCMJ2PNM . " +Wm +oj +Jq " . $this->jpg_quality . " \"" . $this->file . "\" \"" . $this->jpg_file . "\"";
+      $this->out = Execute($this->convert_cmd);
     }
 
     return($this->jpg_file);
@@ -238,8 +240,8 @@ class dicom_convert {
     $this->tn_file = sys_get_temp_dir() . '/' . preg_replace("/(\.(dcm|jpg|jpeg|gif|png))$/i", "", get_valid_file_name($this->file)) . '_tn.jpg';
 
     if(!file_exists($this->tn_file)) {
-      $convert_cmd = BIN_DCMJ2PNM . " +oj +Jq 75 +a +Sxv " . $this->tn_size . " +Syv " . $this->tn_size . " --use-window 1 \"" . $this->file . "\" \"" . $this->tn_file . "\"";
-      $out = Execute($convert_cmd);
+      $this->convert_cmd = BIN_DCMJ2PNM . " +oj +Jq 75 +a +Sxv " . $this->tn_size . " +Syv " . $this->tn_size . " --use-window 1 \"" . $this->file . "\" \"" . $this->tn_file . "\"";
+      $this->out = Execute($this->convert_cmd);
     }
 
     if(file_exists($this->tn_file)) {
@@ -247,8 +249,8 @@ class dicom_convert {
     }
 
     if($filesize < 10) {
-      $convert_cmd = BIN_DCMJ2PNM . " +Wm +oj +Jq 75 +a +Sxv  " . $this->tn_size . " +Syv  " . $this->tn_size . " \"" . $this->file . "\" \"" . $this->tn_file . "\"";
-      $out = Execute($convert_cmd);
+      $this->convert_cmd = BIN_DCMJ2PNM . " +Wm +oj +Jq 75 +a +Sxv  " . $this->tn_size . " +Syv  " . $this->tn_size . " \"" . $this->file . "\" \"" . $this->tn_file . "\"";
+      $this->out = Execute($this->convert_cmd);
     }
 
     return($this->tn_file);

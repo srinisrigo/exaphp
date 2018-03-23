@@ -44,7 +44,7 @@ if (isset($_GET["s"])) {
 
         foreach ($studyResult[0] as $key => $value) $viewerInfo->study->{$key} = $value;
         foreach (json_decode($studyResult[0]->study_details) as $key => $value) $viewerInfo->study->{$key} = $value;
-        foreach (json_decode($studyResult[0]->patient_details) as $key => $value) $viewerInfo->study->{$key} = $value;
+        if ($studyResult[0]->patient_details) foreach (json_decode($studyResult[0]->patient_details) as $key => $value) $viewerInfo->study->{$key} = $value;
         
         $stackinforesult = pg_query(sprintf($stackviewerinfo, $argstudyid, $argstudyid)) or die('query failed'.pg_last_error());
         if (pg_num_rows($stackinforesult)) {
@@ -60,8 +60,13 @@ if (isset($_GET["s"])) {
                         $instanceInfo = new viewerInfo;
                         if ($instanceobject) {
                             foreach (json_decode($instanceobject->instance_info) as $key => $value) $instanceInfo->{$key} = $value;
-                            $instanceattributes = json_decode($instanceobject->instance_attributes);
-                            $instanceInfo->_f = base64_encode($instanceattributes->file_name? join('\\', array($instanceobject->root_directory,$instanceattributes->file_path,$instanceattributes->file_name)):$instanceobject->file_path);
+                            if (count((array)$instanceobject->instance_attributes) > 1) {                                
+                                $instanceattributes = json_decode($instanceobject->instance_attributes);
+                                $instanceInfo->_f = base64_encode(join('\\', array($instanceobject->root_directory,$instanceattributes->file_path,$instanceattributes->file_name)));
+                            }
+                            else {                                
+                                $instanceInfo->_f = base64_encode(join('\\', array($instanceobject->root_directory, $instanceobject->file_path)));
+                            }
                         }
                         $instanceInfo->_id = $instanceobject->id;
                         $stackInfo->images[] = $instanceInfo;
